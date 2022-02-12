@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+
+{% block body_content %}
+    <h1> HOME PAGE </h1>
+    <table class="table table-success table-striped">
+        <thead>
+        <tr class="table-warning">
+            <th scope="col">ID</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Position</th>
+            <th scope="col">Employer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for employee in employees %}
+
+                <th scope="row">{{ employee.id }}</th>
+                <td>{{ employee.f_name }}</td>
+                <td>{{ employee.l_name }}</td>
+                <td>{{ employee.date_of_birth }}</td>
+                <td>{{ employee.position }}</td>
+                <td>{{ employee.employer.name }}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{% url 'create new employee 1' %}">
+            <button class="btn btn-primary">Create New Employee with BASIC form</button>
+        </a>
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'create new employee 2' %}">
+            <button class="btn btn-primary">Create New Employee with MODEL form</button>
+        </a>
+    </div>
+
+
+{% endblock %}
+

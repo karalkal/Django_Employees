@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Employee{% endblock %}
+
+
+{% block body_content %}
+    <h1> CREATE EMPLOYEE </h1>
+
+    <h3> basic form </h3>
+
+    <form method="post" action="{% url 'create new employee 1' %}">
+        {% csrf_token %}
+        {{ new_employee_form }}
+        <button type="submit" class="btn btn-primary">Create Employee</button>
+    </form>
+
+{% endblock %}
+
+
+
