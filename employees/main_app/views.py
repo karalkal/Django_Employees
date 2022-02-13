@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-from employees.main_app.forms import CreateEmployeeForm, CreateEmployeeModelForm
+from employees.main_app.forms import CreateEmployeeForm, CreateEmployeeModelForm, UpdateEmployeeForm
 from employees.main_app.models import Employee, Company
 
 
@@ -51,3 +51,39 @@ def create_employee_with_model_form(request):
             employee = form.save()
             employee.save()
             return redirect('home')
+
+        # What if post ot not is_valid()?
+        return render(request, 'main_app/create_model.html', {'form': form})
+
+
+def update_employee(request, pk):
+    employee = Employee.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        employee_form = UpdateEmployeeForm(
+            request.POST,
+            instance=employee,
+        )
+        if employee_form.is_valid():
+            employee_form.save()
+            return redirect('home')
+    else:
+        employee_form = UpdateEmployeeForm()
+
+    context = {
+        'employee': employee,
+        'employee_form': employee_form,
+    }
+
+    return render(request, 'main_app/update.html', context)
+
+
+def delete_employee(request, pk):
+    employee = Employee.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        employee.delete()
+        return redirect('home')
+
+    else:
+        return render(request, 'main_app/delete.html', {'employee': employee})
